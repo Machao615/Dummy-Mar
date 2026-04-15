@@ -1,0 +1,19 @@
+{
+  "port": "COM3",
+  "baudrate": 115200,
+  "timeout": 1.0,
+  "initial_joints": [0.0, -60.0, 150.0, 0.0, 0.0, 0.0],
+  "joint_index": 3,
+  "step_angle_deg": -0.1,
+  "total_steps": 200,
+  "speed": 50.0,
+  "pause_time_s": 0.5,
+  "initial_settle_s": 3.0,
+  "return_settle_s": 3.0,
+  "sequential": false,
+  "enable_before_scan": false,
+  "disable_after_scan": false,
+  "return_to_initial": true,
+  "command_suffix": ";\n",
+  "log_path": "outputs/joint3_uniform_scan_log.json"
+}

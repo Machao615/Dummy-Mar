@@ -1,0 +1,505 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --bg-accent: #e8f3ff;
+  --card: rgba(255, 255, 255, 0.96);
+  --card-soft: #f8fbff;
+  --border: #d9e5f2;
+  --border-strong: #c4d7ea;
+  --text: #1d2a36;
+  --muted: #607284;
+  --accent: #28b7ae;
+  --accent-2: #3b82f6;
+  --accent-soft: #eef8ff;
+  --danger: #e3594e;
+  --danger-soft: #fff1ee;
+  --shadow: 0 22px 48px rgba(29, 42, 54, 0.08);
+  --radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI Variable Display", "Segoe UI", "Bahnschrift", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 24rem),
+    radial-gradient(circle at top right, rgba(40, 183, 174, 0.1), transparent 18rem),
+    linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+}
+
+.app-shell {
+  width: min(1680px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 20px 0 28px;
+}
+
+.topbar,
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+}
+
+.brand-block {
+  max-width: min(60rem, 100%);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.topbar-actions,
+.lang-toggle,
+.button-row,
+.inline-row,
+.viewer-meta,
+.viewer-actions,
+.segmented-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.status-pill {
+  width: auto;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: #ebfff7;
+  border: 1px solid #bdebdc;
+  color: #15785f;
+  font-weight: 600;
+}
+
+.status-pill.soft {
+  background: #f4f8fc;
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(340px, 0.92fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.primary-column,
+.sidebar-column {
+  display: grid;
+  gap: 18px;
+}
+
+.card {
+  min-width: 0;
+  padding: 20px;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stage-card {
+  padding-bottom: 16px;
+}
+
+.stage-head {
+  margin-bottom: 18px;
+}
+
+.viewer-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.viewer-meta {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.robot-view {
+  width: 100%;
+  height: clamp(440px, 54vh, 720px);
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #f8fbfe 0%, #eef4fa 100%);
+  border: 1px solid var(--border);
+}
+
+.viewer-footer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mini-stat,
+.metric-card,
+.bar-card,
+.joint-card {
+  background: var(--card-soft);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.mini-stat.wide {
+  grid-column: span 1;
+}
+
+.mini-stat span,
+.metric-card span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.mini-stat strong,
+.metric-card strong {
+  display: block;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.metric-card.alert {
+  background: var(--danger-soft);
+  border-color: #f2d1cb;
+}
+
+.metric-card.alert strong {
+  color: #9f3128;
+}
+
+.split-grid,
+.metric-grid,
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric-grid {
+  grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
+}
+
+.field-row {
+  margin-bottom: 14px;
+}
+
+body.virtual-device-mode .serial-only,
+body.virtual-device-mode #refresh-ports {
+  display: none !important;
+}
+
+.inline-hint,
+.panel-note,
+label {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  font: inherit;
+  border-radius: 14px;
+}
+
+input,
+select {
+  border: 1px solid var(--border-strong);
+  padding: 12px 14px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #80b7ff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+input::placeholder {
+  color: #95a6b7;
+}
+
+button {
+  border: 0;
+  padding: 12px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.18);
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+button.ghost {
+  color: var(--text);
+  background: #f2f6fb;
+  border: 1px solid var(--border);
+}
+
+button.danger {
+  background: linear-gradient(135deg, var(--danger) 0%, #ff8a5c 100%);
+}
+
+button.small {
+  width: auto;
+  min-width: 86px;
+}
+
+.segmented-control {
+  flex-wrap: wrap;
+}
+
+.segmented-control button {
+  width: auto;
+  min-width: 112px;
+}
+
+.lang-toggle .is-active,
+.segmented-control .is-active {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+}
+
+.command-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.inline-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.bar-list {
+  display: grid;
+  gap: 10px;
+}
+
+.bar-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.bar-head span {
+  color: var(--muted);
+}
+
+.bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: #e8eef5;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #37c3ba 0%, #ff9b62 100%);
+}
+
+.manual-card {
+  margin-top: 18px;
+}
+
+.joint-control-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.joint-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.joint-card-head span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.joint-card-head strong {
+  font-size: 22px;
+}
+
+.joint-card input[type="range"] {
+  padding: 0;
+}
+
+.joint-actions {
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.button-row.compact {
+  margin-top: 14px;
+  justify-content: flex-end;
+}
+
+.teleop-metric-grid {
+  margin-top: 14px;
+}
+
+.debug-card {
+  margin-top: 18px;
+}
+
+.json-view {
+  min-height: 220px;
+  width: 100%;
+  margin: 0;
+  padding: 16px;
+  border-radius: 18px;
+  overflow: auto;
+  background: #f6f9fc;
+  color: #1d2a36;
+  border: 1px solid var(--border);
+}
+
+canvas {
+  display: block;
+}
+
+@media (max-width: 1480px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-column {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1080px) {
+  .split-grid,
+  .sidebar-column,
+  .viewer-footer,
+  .metric-grid,
+  .field-grid,
+  .command-grid,
+  .joint-control-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    width: min(100vw, calc(100vw - 20px));
+    padding-top: 12px;
+  }
+
+  .topbar,
+  .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbar-actions,
+  .button-row,
+  .inline-row,
+  .viewer-actions,
+  .viewer-meta {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .robot-view {
+    height: min(60vh, 520px);
+  }
+}

@@ -1,0 +1,29 @@
+[project]
+name = "dummy-robot-sdk"
+version = "0.4.0"
+authors = [
+    { name = "MaChao", email = "machao@example.com" },
+]
+description = "Python SDK for DummyRobot control, structured-light scanning, and serial workflow prototyping"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "numpy>=1.24",
+    "pyserial>=3.5",
+]
+
+[project.optional-dependencies]
+lerobot = [
+    "pyarrow>=15.0.0",
+]
+structured-light-debug = [
+    "Pillow>=10.0.0",
+    "opencv-python>=4.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

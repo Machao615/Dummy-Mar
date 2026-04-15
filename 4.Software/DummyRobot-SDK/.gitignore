@@ -1,0 +1,8 @@
+dist/
+build/
+*.egg-info/
+__pycache__/
+src/dummy_robot/__pycache__/
+src/dummy_robot/webui/__pycache__/
+test_outputs/
+*.pyc

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dummy WEBUI</title>
+  <link rel="stylesheet" href="/assets/styles.css?v=20260415j">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <p class="eyebrow" data-i18n="hero.kicker">DummyRobot / Web Operator Console</p>
+        <h1 data-i18n="hero.title">Dummy WEBUI</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="lang-toggle" role="group" aria-label="Language switch">
+          <button id="lang-zh" class="ghost small is-active" data-lang="zh">ZH</button>
+          <button id="lang-en" class="ghost small" data-lang="en">EN</button>
+        </div>
+        <div class="status-pill" id="connection-pill">Disconnected</div>
+        <div class="status-pill soft" id="mode-pill">Idle</div>
+      </div>
+    </header>
+
+    <section class="layout-grid">
+      <div class="primary-column">
+        <article class="card stage-card">
+          <div class="card-head stage-head">
+            <div>
+              <p class="eyebrow" data-i18n="viewer.tag">Realtime View</p>
+              <h2 data-i18n="viewer.title">3D Robot Pose</h2>
+            </div>
+            <div class="viewer-actions">
+              <div class="viewer-meta">
+                <span id="viewer-build">BUILD 20260415j</span>
+                <span id="viewer-port">SOURCE -</span>
+                <span id="viewer-updated">SYNC -</span>
+              </div>
+              <button id="reset-view-btn" class="ghost small" data-i18n="actions.resetView">Reset View</button>
+            </div>
+          </div>
+          <div id="robot-view" class="robot-view"></div>
+          <div class="viewer-footer">
+            <div class="mini-stat">
+              <span data-i18n="viewer.connection">Connection</span>
+              <strong id="state-connection">Offline</strong>
+            </div>
+            <div class="mini-stat">
+              <span data-i18n="viewer.enabled">Enabled</span>
+              <strong id="state-enabled">false</strong>
+            </div>
+            <div class="mini-stat wide">
+              <span data-i18n="viewer.response">Last Response</span>
+              <strong id="state-response">-</strong>
+            </div>
+          </div>
+        </article>
+
+        <section class="split-grid">
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow" data-i18n="telemetry.tag">Live Telemetry</p>
+                <h2 data-i18n="telemetry.joints">Joint Angles</h2>
+              </div>
+            </div>
+            <div id="joint-bars" class="bar-list"></div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow" data-i18n="telemetry.toolTag">Tool Frame</p>
+                <h2 data-i18n="telemetry.pose">End Effector Pose</h2>
+              </div>
+            </div>
+            <div id="pose-bars" class="bar-list pose-list"></div>
+          </article>
+        </section>
+      </div>
+
+      <aside class="sidebar-column">
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow" data-i18n="connection.tag">Transport</p>
+              <h2 data-i18n="connection.title">Connection</h2>
+            </div>
+            <button id="refresh-ports" class="ghost small" data-i18n="actions.refresh">Refresh</button>
+          </div>
+          <div class="field-row">
+            <label data-i18n="connection.mode">Device Mode</label>
+            <div class="segmented-control" id="mode-toggle" role="group" aria-label="Device mode switch">
+              <button type="button" class="ghost small is-active" data-mode="real" data-i18n="connection.modeReal">Real Device</button>
+              <button type="button" class="ghost small" data-mode="virtual" data-i18n="connection.modeVirtual">Virtual Device</button>
+            </div>
+          </div>
+          <div id="port-field" class="field-row serial-only">
+            <label for="port-select" data-i18n="connection.port">Serial Port</label>
+            <select id="port-select"></select>
+          </div>
+          <p class="inline-hint" id="virtual-hint" hidden data-i18n="connection.virtualHint">Virtual mode runs a digital twin without a serial device.</p>
+          <div id="serial-settings" class="field-grid serial-only">
+            <div>
+              <label for="baudrate-input" data-i18n="connection.baudrate">Baudrate</label>
+              <input id="baudrate-input" type="number" value="115200">
+            </div>
+            <div>
+              <label for="timeout-input" data-i18n="connection.timeout">Timeout</label>
+              <input id="timeout-input" type="number" step="0.1" value="1.0">
+            </div>
+          </div>
+          <div class="button-row">
+            <button id="connect-btn" data-i18n="actions.connect">Connect</button>
+            <button id="disconnect-btn" class="ghost" data-i18n="actions.disconnect">Disconnect</button>
+          </div>
+        </article>
+
+        <article id="teleop-panel" class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow" data-i18n="teleop.tag">Teleop Bridge</p>
+              <h2 data-i18n="teleop.title">Teleop Source</h2>
+            </div>
+          </div>
+          <div class="field-row">
+            <label data-i18n="teleop.source">Teleop Source</label>
+            <div class="segmented-control" id="teleop-source-toggle" role="group" aria-label="Teleop source switch">
+              <button type="button" class="ghost small is-active" data-teleop-source="manual" data-i18n="teleop.sourceManual">Manual Web</button>
+              <button type="button" class="ghost small" data-teleop-source="so101" data-i18n="teleop.sourceSo101">SO101 Mirror</button>
+            </div>
+          </div>
+          <div id="teleop-so101-fields" class="field-grid">
+            <div>
+              <label for="teleop-port-input" data-i18n="teleop.port">SO101 Port</label>
+              <input id="teleop-port-input" type="text" placeholder="COM7">
+            </div>
+            <div>
+              <label for="teleop-rate-input" data-i18n="teleop.rate">Source Hz</label>
+              <input id="teleop-rate-input" type="number" min="1" max="120" step="1" value="20">
+            </div>
+          </div>
+          <div class="button-row">
+            <button id="teleop-start-btn" data-i18n="teleop.start">Start Mirror</button>
+            <button id="teleop-stop-btn" class="ghost" data-i18n="teleop.stop">Stop Mirror</button>
+          </div>
+          <p id="teleop-status-note" class="inline-hint" data-i18n="teleop.noteManual">Virtual control is currently driven by the web UI.</p>
+          <div class="metric-grid teleop-metric-grid">
+            <div class="metric-card"><span data-i18n="teleop.stateSource">Source</span><strong id="teleop-state-source">manual</strong></div>
+            <div class="metric-card"><span data-i18n="teleop.stateActive">Active</span><strong id="teleop-state-active">false</strong></div>
+            <div class="metric-card"><span data-i18n="teleop.stateConnected">Connected</span><strong id="teleop-state-connected">false</strong></div>
+            <div class="metric-card"><span data-i18n="teleop.stateSample">Last Sample</span><strong id="teleop-state-sample">-</strong></div>
+            <div class="metric-card"><span data-i18n="teleop.stateFps">Source FPS</span><strong id="teleop-state-fps">-</strong></div>
+            <div class="metric-card alert"><span data-i18n="teleop.stateError">Last Error</span><strong id="teleop-state-error">-</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow" data-i18n="status.tag">Machine State</p>
+              <h2 data-i18n="status.title">Status Snapshot</h2>
+            </div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric-card"><span data-i18n="status.mode">Mode</span><strong id="state-mode">-</strong></div>
+            <div class="metric-card"><span data-i18n="status.port">Endpoint</span><strong id="state-port">-</strong></div>
+            <div class="metric-card"><span data-i18n="status.updated">Updated</span><strong id="state-updated">-</strong></div>
+            <div class="metric-card"><span data-i18n="status.command">Last Command</span><strong id="state-command">-</strong></div>
+            <div class="metric-card alert"><span data-i18n="status.error">Last Error</span><strong id="state-error">-</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow" data-i18n="commands.tag">Quick Actions</p>
+              <h2 data-i18n="commands.title">Robot Commands</h2>
+            </div>
+          </div>
+          <div class="command-grid">
+            <button data-command="enable" data-i18n="actions.enable">Enable</button>
+            <button data-command="disable" class="ghost" data-i18n="actions.disable">Disable</button>
+            <button data-command="home" class="ghost" data-i18n="actions.home">Home</button>
+            <button data-command="reset" class="ghost" data-i18n="actions.reset">Reset</button>
+            <button data-command="stop" class="danger" data-i18n="actions.stop">Stop</button>
+          </div>
+          <div class="field-row">
+            <label for="raw-command" data-i18n="commands.raw">Raw Command</label>
+            <div class="inline-row">
+              <input id="raw-command" type="text" placeholder="#GETJPOS or &0,0,90,0,0,0" data-i18n-placeholder="commands.rawPlaceholder">
+              <button id="send-raw-btn" class="small" data-i18n="actions.send">Send</button>
+            </div>
+          </div>
+        </article>
+      </aside>
+    </section>
+
+    <section class="card manual-card">
+      <div class="card-head">
+        <div>
+          <p class="eyebrow" data-i18n="manual.tag">Manual Jog</p>
+          <h2 data-i18n="manual.title">Single Joint Control</h2>
+        </div>
+        <div class="panel-note" data-i18n="manual.note">Each slider can be sent independently, or send all six joints together.</div>
+      </div>
+      <p id="manual-lock-note" class="inline-hint" data-i18n="manual.webDriven">Virtual control is currently driven by the web UI.</p>
+      <div id="joint-controls" class="joint-control-grid"></div>
+      <div class="button-row compact">
+        <button id="send-joints-btn" data-i18n="actions.sendAllJoints">Send All Joints</button>
+      </div>
+    </section>
+
+    <section class="card debug-card">
+      <div class="card-head">
+        <div>
+          <p class="eyebrow" data-i18n="debug.tag">Debug Payload</p>
+          <h2 data-i18n="debug.title">Raw State JSON</h2>
+        </div>
+        <div class="panel-note" data-i18n="debug.note">Polled from `/api/state` for frontend and 3D sync.</div>
+      </div>
+      <pre id="state-json" class="json-view"></pre>
+    </section>
+  </main>
+  <script type="module" src="/assets/app.js?v=20260415j"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+# Thesis and personal academic materials
+6.Thesis/
+test-results/
+
+# Local screenshots and temporary presentation assets
+webconsole-*.png
+*.ppt
+*.pptx
+
+# Local publishing notes or draft attachments
+*.tmp
+*.bak
+
+# Temporary reference repositories
+4.Software/_temp_laser_scanning_ref/
+4.Software/_temp_laser_stripe_ref/
+_ext/
+_temp_models/
+
+# Local toolchains, packaged apps, and release archives
+_tools/
+4.Software/DummyStudio/
+4.Software/*.zip
+4.Software/CLI-Tool/zadig-*.exe
+
+# Python caches and build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# IDE metadata
+.idea/
+.vscode/
+.DS_Store
+desktop.ini
+Thumbs.db
+
+# Local test outputs and generated scan artifacts
+4.Software/DummyRobot-SDK/test_outputs/
+4.Software/DummyRobot-ScanControl/outputs/
+
+# Web / app runtime caches
+4.Software/DummyRobot-WebConsole/app/__pycache__/
+4.Software/DummyRobot-SDK/src/dummy_robot/webui/__pycache__/
+4.Software/CLI-Tool/fibre/__pycache__/
+4.Software/CLI-Tool/ref_tool/__pycache__/
+
+# Optional local large binaries or archives
+*.zip
+*.rar
+*.7z

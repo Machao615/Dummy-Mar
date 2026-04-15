@@ -1,0 +1,16 @@
+[project]
+name = "dummy-robot-webconsole"
+version = "0.1.0"
+description = "Modern web operator console for DummyRobot"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
