@@ -143,5 +143,3 @@ Before the first public push, review these items:
 2. whether vendor PDFs, installers, or datasheets inside `5.Misc/` are safe to redistribute
 3. whether third-party code bundled in `CLI-Tool/` should remain vendored or be replaced by installation instructions
 4. whether all personal academic materials and local outputs are excluded correctly
-
-For a more detailed release checklist, see `GITHUB_PUBLISHING_CN.md`.
